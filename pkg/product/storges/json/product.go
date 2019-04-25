@@ -2,6 +2,7 @@ package json
 
 import "time"
 
+// 产品数据存储结构
 type Product struct {
 	ID          int       `json:"id"`
 	Name        string    `json:"name"`

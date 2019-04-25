@@ -11,9 +11,9 @@ import (
 )
 
 const (
-	dir = "/data/"
+	dir = "/data/" // 数据存储目录
 
-	CollectionBeer = "products"
+	CollectionProduct = "products"
 )
 
 type Storage struct {
@@ -38,7 +38,7 @@ func NewStorage() (*Storage, error) {
 
 func (s *Storage) Add(b adding.Product) error {
 
-	newB := adding.Product{
+	newP := adding.Product{
 		ID:          rand.Int(),
 		Name:        b.Name,
 		Price:       rand.Float32(),
@@ -47,8 +47,8 @@ func (s *Storage) Add(b adding.Product) error {
 		Updated:     time.Now(),
 	}
 
-	resource := strconv.Itoa(newB.ID)
-	if err := s.db.Write(CollectionBeer, resource, newB); err != nil {
+	resource := strconv.Itoa(newP.ID)
+	if err := s.db.Write(CollectionProduct, resource, newP); err != nil {
 		return err
 	}
 	return nil
