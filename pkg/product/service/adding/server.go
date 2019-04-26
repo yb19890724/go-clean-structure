@@ -22,8 +22,8 @@ func NewService(r Repository) Service {
 }
 
 // 服务实现添加方法
-func (s *service) Add(b ...Product) {
-	for _, product := range b {
+func (s *service) Add(p ...Product) {
+	for _, product := range p {
 		_ = s.GR.Add(product)
 	}
 }

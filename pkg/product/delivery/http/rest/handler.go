@@ -2,21 +2,24 @@ package rest
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/julienschmidt/httprouter"
 	"github.com/yb19890724/go-clean-structure/pkg/product/service/adding"
+	"github.com/yb19890724/go-clean-structure/pkg/product/service/listing"
 	response "github.com/yb19890724/go-clean-structure/tools/response/json"
 	"net/http"
+	"strconv"
 )
 
-func Handler(a adding.Service,) http.Handler {
+func Handler(a adding.Service, l listing.Service) http.Handler {
 
 	router := httprouter.New()
 
 	router.POST("/products", store(a))
 
-	/*router.GET("/product/:id", product())
+	router.GET("/products", products(l))
 
-	router.POST("/store/:id", store())*/
+	router.GET("/product/:id", product(l))
 
 	return router
 }
@@ -45,17 +48,38 @@ func store(s adding.Service) func(w http.ResponseWriter, r *http.Request, _ http
 
 }
 
-/*func product() func(w http.ResponseWriter, r *http.Request, _ httprouter.Params){
+// 获取产品列表
+func products(l listing.Service) func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+
 	return func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-		_ := json.NewDecoder(r.Body)
+
+		list := l.Products()
+
+		response.ResponseJson(w, list)
 
 	}
+
 }
 
-func store() func(w http.ResponseWriter, r *http.Request, _ httprouter.Params){
-	return func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-		_ := json.NewDecoder(r.Body)
+// 获取指定产品
+func product(l listing.Service) func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	return func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 
+		ID, err := strconv.Atoi(p.ByName("id"))
+
+		if err != nil {
+			http.Error(w, fmt.Sprintf("%s is not a valid product ID, it must be a number.", p.ByName("id")), http.StatusBadRequest)
+			return
+		}
+
+
+		product,err := l.Product(ID)
+
+		if err == listing.ErrNotFound {
+			http.Error(w, "The product you requested does not exist.", http.StatusNotFound)
+			return
+		}
+
+		response.ResponseJson(w, product)
 	}
 }
-*/

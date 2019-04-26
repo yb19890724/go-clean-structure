@@ -38,10 +38,21 @@ func Json(w http.ResponseWriter, status int, data interface{}) {
 
 }
 
+// list 响应
+func ResponseJson(w http.ResponseWriter, data interface{})  {
+
+	response.Data=data
+
+	response.Message="请求成功!"
+
+	Json(w, http.StatusOK, response)
+}
+
 // http status 201
 func WithCreated(w http.ResponseWriter) {
 
-	response.Message = "添加成功!";
+	response.Message = "添加成功!"
+
 	Json(w, http.StatusCreated, response)
 
 }
