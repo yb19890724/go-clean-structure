@@ -7,7 +7,7 @@
 - 标准Go项目布局:https://github.com/golang-standards/project-layout
 - go语言ddd实践:https://github.com/marcusolsson/goddd
 - Go中的清洁架构:https://github.com/eminetto/clean-architecture-go
-- 上个仓库的演化版本:https://github.com/eminetto/clean-architecture-go
+- 上个仓库的演化版本:https://github.com/bxcodec/go-clean-arch
 
 
 
