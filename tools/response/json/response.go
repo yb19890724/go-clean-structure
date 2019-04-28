@@ -6,16 +6,16 @@ import (
 )
 
 const (
-	SUCCESS = 1
-	FAIL    = -1
-	ERROR   = -2
+	Success = 1
+	Fail    = -1
+	Error   = -2
 )
 
 var response Response
 
 func init() {
 	response = Response{
-		Code: SUCCESS,
+		Code: Success,
 		Data: json.Encoder{},
 	}
 }

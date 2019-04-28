@@ -13,7 +13,7 @@ import (
 )
 
 const (
-	dir = "/data/" // 数据存储目录
+	Dir = "/data/" // 数据存储目录
 
 	CollectionProduct = "products"
 )
@@ -30,7 +30,7 @@ func NewStorage() (*Storage, error) {
 	_, filename, _, _ := runtime.Caller(0)
 	p := path.Dir(filename)
 
-	s.db, err = scribble.New(p+dir, nil)
+	s.db, err = scribble.New(p+Dir, nil)
 	if err != nil {
 		return nil, err
 	}
